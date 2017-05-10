@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "repository": {},
   "scripts": {
-    "start": "npm run build",
+    "start": "npm run build && node server.js",
     "test": "echo lol",
     "lint": "vbuild --eslint",
     "dev": "vbuild -d",
