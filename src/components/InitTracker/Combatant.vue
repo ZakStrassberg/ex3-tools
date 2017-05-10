@@ -11,19 +11,30 @@
       <input class="col remove" type="button" value="X" @click="removeCombatant">
     </article>
     <ul class="row details">
-      <li>Def</li>
-      <li>Onslaught</li>
+      <li>
+        <i class="ra ra-sword"></i> {{ defense.parry }}
+        <i class="ra ra-player-dodge" /> {{ defense.evasion }}
+      </li>
+      <li>
+        <i class="ra ra-cracked-shield" /> {{ onslaught }}
+      </li>
       <li>?</li>
-      <li>HLs</li>
+      <li>
+        <HealthTrack :health="health" />
+      </li>
     </ul>
     <textarea class="row col" v-model="notes" name="notes" placeholder="Notes..." />
   </li>
 </template>
 
 <script>
+import HealthTrack from './HealthTrack'
 export default {
   name: 'Combatant',
   props: ['combatant'],
+  components: {
+    HealthTrack,
+  },
   data: () => ({
     notes: '',
     defense: { parry: 0, evasion: 0 },

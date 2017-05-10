@@ -8,6 +8,8 @@
 import InitTracker from './InitTracker'
 // eslint-disable-next-line no-unused-vars
 import styles from '../assets/scss/main.scss'
+// eslint-disable-next-line no-unused-vars
+import rpgAwesome from 'rpg-awesome/css/rpg-awesome.css'
 
 export default {
   name: 'app',
