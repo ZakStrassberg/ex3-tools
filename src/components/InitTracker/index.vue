@@ -2,7 +2,7 @@
 <section id="init-tracker">
   <h2>Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}</h2>
   <transition-group name="combatant-item" tag="ul">
-    <Combatant v-for="(each, index) in sortedCombatants" key="each.name" :combatant.sync="each" @remove="removeCombatant(index)" />
+    <Combatant v-for="(each, index) in sortedCombatants" :key="each.key" :combatant.sync="each" @remove="removeCombatant(index)" />
   </transition-group>
   <aside class="actions">
     <button @click="nextTurn">Next turn</button>
@@ -22,16 +22,16 @@ export default {
         name: 'Harmonious Jade',
         init: 12,
         turnOver: false,
-        notes: ''
+        key: 'unique1',
       },
       {
         name: 'Peleps Deled',
         init: 7,
         turnOver: false,
-        notes: ''
-      }
+        key: 'unique2',
+      },
     ],
-    turn: 0
+    turn: 0,
   }),
   computed: {
     sortedCombatants () {
@@ -39,9 +39,9 @@ export default {
     },
     currentCombatant () {
       return find(this.sortedCombatants, {
-        turnOver: false
+        turnOver: false,
       })
-    }
+    },
   },
   methods: {
     nextTurn () {
@@ -52,20 +52,21 @@ export default {
     },
     removeCombatant (index) {
       this.combatants.splice(index, 1)
-    }
+    },
   },
   components: {
-    Combatant
-  }
+    Combatant,
+  },
 }
 </script>
 
 <style lang="scss">
 #init-tracker {
-    width: 800px;
-    margin: 0 auto;
-    .combatant-item-move {
-      transition: transform 1s;
-    }
+  width: 800px;
+  margin: 0 auto;
+
+  .combatant-item-move {
+    transition: transform 1s;
+  }
 }
 </style>

@@ -1,0 +1,7 @@
+@import 'mixins';
+
+@include font-face(Pterra, '../fonts/Pterra-dactyl', null, null, ttf);
+
+body, input {
+  font-family: Pterra;
+}

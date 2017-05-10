@@ -1,4 +1,7 @@
 {
-  "extends": "vue"
+  "extends": "vue",
   // Your overrides...
+  "rules": {
+     "comma-dangle": ["error", "always-multiline"],
+  },
 }

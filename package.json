@@ -8,7 +8,7 @@
     "start": "npm run build && node server.js",
     "test": "echo lol",
     "lint": "vbuild --eslint",
-    "dev": "vbuild -d",
+    "dev": "vbuild -d --port 5001",
     "build": "vbuild"
   },
   "devDependencies": {
@@ -22,6 +22,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
     "lodash": "^4.17.4"
   }
 }
