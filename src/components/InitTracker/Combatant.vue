@@ -19,9 +19,7 @@
         <i class="ra ra-cracked-shield" /> {{ onslaught }}
       </li>
       <li>?</li>
-      <li>
-        <HealthTrack :health="health" />
-      </li>
+      <HealthTrack :health="health" />
     </ul>
     <textarea class="row col" v-model="notes" name="notes" placeholder="Notes..." />
   </li>

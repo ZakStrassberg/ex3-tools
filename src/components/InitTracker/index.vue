@@ -7,12 +7,14 @@
   <aside class="actions">
     <button @click="nextTurn">Next turn</button>
   </aside>
+  <AddCombatant @addCombatant="addCombatant" />
 </section>
 </template>
 
 <script>
 import { sortBy, find } from 'lodash'
 import Combatant from './Combatant'
+import AddCombatant from './AddCombatant'
 
 export default {
   name: 'InitTracker',
@@ -50,12 +52,16 @@ export default {
         each.turnOver = false
       }
     },
+    addCombatant (combatant) {
+      this.combatants.push(combatant)
+    },
     removeCombatant (index) {
       this.combatants.splice(index, 1)
     },
   },
   components: {
     Combatant,
+    AddCombatant,
   },
 }
 </script>
