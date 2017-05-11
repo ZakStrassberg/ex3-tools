@@ -20,7 +20,12 @@
       <li>
         <i class="ra ra-cracked-shield" /> {{ onslaught }}
       </li>
-      <li>?</li>
+      <li class="motes">
+        <i class="ra ra-circular-saw" />
+        <input type="text" :value="moteDisplay.personal" @change="updateMotes" />
+        <i class="ra  ra-circular-shield" />
+        <input type="text" :value="moteDisplay.peripheral" />
+      </li>
       <HealthTrack :health="health" />
     </ul>
     <textarea class="row col" v-model="notes" name="notes" placeholder="Notes..." />
@@ -43,10 +48,32 @@ export default {
     defense: { parry: 0, evasion: 0 },
     onslaught: 0,
     health: [1, 2, 2, 1, 1],
+    motes: {
+      personal: {
+        total: 11,
+        available: 9,
+      },
+      peripheral: {
+        total: 35,
+        available: 17,
+      },
+    },
   }),
   methods: {
     removeCombatant () {
       this.$emit('remove')
+    },
+    updateMotes (e) {
+      console.log(e.target.value)
+      this.motes['personal'].available = e.target.value
+    },
+  },
+  computed: {
+    moteDisplay () {
+      return {
+        personal: `${this.motes.personal.available}/${this.motes.personal.total}`,
+        peripheral: `${this.motes.peripheral.available}/${this.motes.peripheral.total}`,
+      }
     },
   },
 }
@@ -66,6 +93,16 @@ export default {
     background: grey;
   }
 
+  input[type="text"] {
+    appearance: none;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid green;
+    margin: 2px 6px;
+    background: inherit;
+    color: inherit;
+  }
+
   article {
     display: inline-flex;
     width: 100%;
@@ -74,15 +111,6 @@ export default {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-    }
-    input[type="text"] {
-      appearance: none;
-      border: none;
-      outline: none;
-      border-bottom: 1px solid green;
-      margin: 2px 6px;
-      background: inherit;
-      color: inherit;
     }
 
     .name-turnOver {
@@ -115,7 +143,15 @@ export default {
     padding: 0;
 
     li {
+      display: inline-flex;
       flex: auto;
+      &.motes {
+        input {
+          flex: 0 1 50px;
+          width: 50px;
+          text-align: center;
+        }
+      }
     }
   }
 
