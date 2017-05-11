@@ -6,7 +6,9 @@
         <input class="name" type="text" v-model.lazy="combatant.name" />
       </div>
       <div class="col init">
-        <input type="text" v-model.number.lazy="combatant.init" /> Initiative
+        <input type="text" v-model.number.lazy="combatant.init" />
+        <NumberChanger @increment="combatant.init++" @decrement="combatant.init--" />
+        Initiative
       </div>
       <input class="col remove" type="button" value="X" @click="removeCombatant">
     </article>
@@ -27,11 +29,14 @@
 
 <script>
 import HealthTrack from './HealthTrack'
+import NumberChanger from '../Common/NumberChanger'
+
 export default {
   name: 'Combatant',
   props: ['combatant'],
   components: {
     HealthTrack,
+    NumberChanger,
   },
   data: () => ({
     notes: '',
