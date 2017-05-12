@@ -1,6 +1,6 @@
 <template>
 <section id="init-tracker">
-  <h2>Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}</h2>
+  <h2 class="row col">Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}</h2>
   <transition-group name="combatant-item" tag="ul">
     <Combatant v-for="(each, index) in sortedCombatants" :key="each.key" :combatant.sync="each" @remove="removeCombatant(index)" />
   </transition-group>
