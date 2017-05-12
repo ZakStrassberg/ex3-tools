@@ -89,7 +89,7 @@ export default {
   margin: 12px 0;
   box-sizing: border-box;
   border-radius: 4px;
-  border: 1px solid black;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
 
   .row {
     > * {
