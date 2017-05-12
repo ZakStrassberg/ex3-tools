@@ -26,5 +26,10 @@ export default {
   i:before {
     cursor: pointer;
   }
+  .icon-up-circle, .icon-down-circle {
+    &:hover {
+      color: grey;
+    }
+  }
 }
 </style>

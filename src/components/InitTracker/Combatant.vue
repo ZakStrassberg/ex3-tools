@@ -18,7 +18,7 @@
         <i class="ra ra-player-dodge" /> {{ defense.evasion }}
       </li>
       <li>
-        <i class="ra ra-cracked-shield" /> {{ onslaught }}
+        <i class="ra ra-cracked-shield" /> {{ onslaught }} <NumberChanger @increment="onslaught++" @decrement="onslaught--" />
       </li>
       <li class="motes">
         <i class="ra ra-circular-saw" />
@@ -144,6 +144,8 @@ export default {
 
     li {
       display: inline-flex;
+      justify-content: center;
+      align-items: center;
       flex: auto;
       &.motes {
         input {
