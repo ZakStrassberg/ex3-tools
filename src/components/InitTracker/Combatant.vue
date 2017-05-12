@@ -1,18 +1,20 @@
 <template lang="html">
   <li :class="['combatant', {turnOver: combatant.turnOver}]">
-    <article class="row">
+    <article class="row no-gutters">
       <div class="col name-turnOver">
-        <i class="ra ra-hourglass turnOver" @click="combatant.turnOver = !combatant.turnOver" />
+        <i class="ra ra-hourglass turnOver button" @click="combatant.turnOver = !combatant.turnOver" />
         <input class="name" type="text" v-model.lazy="combatant.name" />
       </div>
-      <div class="col init">
+      <div class="col init px-3">
         <input type="text" v-model.number.lazy="combatant.init" />
         <NumberChanger @increment="combatant.init++" @decrement="combatant.init--" />
         Initiative
       </div>
-      <input class="col remove" type="button" value="X" @click="removeCombatant">
+      <div class="col remove">
+        <i class="ra ra-tombstone button" @click="removeCombatant" />
+      </div>
     </article>
-    <ul class="row details">
+    <ul class="row details pt-3">
       <li>
         <i class="ra ra-sword"></i> {{ defense.parry }}
         <i class="ra ra-player-dodge" /> {{ defense.evasion }}
@@ -28,7 +30,7 @@
       </li>
       <HealthTrack :health="health" />
     </ul>
-    <textarea class="row col" v-model="notes" name="notes" placeholder="Notes..." />
+    <textarea class="row col mt-3" v-model="notes" name="notes" placeholder="Notes..." />
   </li>
 </template>
 
@@ -81,7 +83,7 @@ export default {
 
 <style lang="scss">
 .combatant {
-  background: white;
+  background: lighten(gold, 40%);
   display: block;
   padding: 12px;
   margin: 12px 0;
@@ -95,20 +97,13 @@ export default {
       color: grey;
       border-color: grey;
       &:hover {
-        color: green;
+        color: gold;
       }
     }
   }
   i.turnOver {
-    color: green;
-    border: 4px solid green;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 6px;
-    font-size: 120%;
-    border-radius: 50%;
-    transition: 0.4s;
+    border-color: gold;
+    color: gold;
     &:hover {
       color: grey;
       border-color: grey;
@@ -119,7 +114,7 @@ export default {
     appearance: none;
     border: none;
     outline: none;
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid gold;
     margin: 2px 6px;
     background: inherit;
     color: inherit;
@@ -180,16 +175,27 @@ export default {
   }
 
   textarea {
+    background: lighten(gold, 45%);
     appearance: none;
     border: none;
     outline: none;
     box-sizing: border-box;
     display: block;
     width: 100%;
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid gold;
     border-radius: 2px;
-    background: #eee;
     margin: 0;
+  }
+
+  .button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid;
+    padding: 6px;
+    font-size: 120%;
+    border-radius: 50%;
+    transition: 0.4s;
   }
 
 }
