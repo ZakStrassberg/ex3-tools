@@ -2,7 +2,7 @@
   <li :class="['combatant', {turnOver: combatant.turnOver}]">
     <article class="row">
       <div class="col name-turnOver">
-        <input class="turnOver" type="checkbox" v-model="combatant.turnOver" />
+        <i class="ra ra-hourglass turnOver" @click="combatant.turnOver = !combatant.turnOver" />
         <input class="name" type="text" v-model.lazy="combatant.name" />
       </div>
       <div class="col init">
@@ -90,7 +90,29 @@ export default {
   border: 1px solid black;
 
   &.turnOver {
-    background: grey;
+    background: #ccc;
+    i.turnOver {
+      color: grey;
+      border-color: grey;
+      &:hover {
+        color: green;
+      }
+    }
+  }
+  i.turnOver {
+    color: green;
+    border: 4px solid green;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    font-size: 120%;
+    border-radius: 50%;
+    transition: 0.4s;
+    &:hover {
+      color: grey;
+      border-color: grey;
+    }
   }
 
   input[type="text"] {
