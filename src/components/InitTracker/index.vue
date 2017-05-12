@@ -1,13 +1,13 @@
 <template>
-<section id="init-tracker">
+<section>
   <h2 class="row col">Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}</h2>
   <transition-group name="combatant-item" tag="ul">
     <Combatant v-for="(each, index) in sortedCombatants" :key="each.key" :combatant.sync="each" @remove="removeCombatant(index)" />
   </transition-group>
-  <aside class="actions">
+  <aside class="row col actions">
     <button @click="nextTurn">Next turn</button>
   </aside>
-  <AddCombatant @addCombatant="addCombatant" />
+  <AddCombatant class="row col" @addCombatant="addCombatant" />
 </section>
 </template>
 
@@ -68,11 +68,14 @@ export default {
 
 <style lang="scss">
 #init-tracker {
-  width: 800px;
-  margin: 0 auto;
-
   .combatant-item-move {
     transition: transform 1s;
   }
+
+  > ul {
+    margin: 0;
+    padding: 0;
+  }
+
 }
 </style>

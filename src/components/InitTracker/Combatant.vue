@@ -14,21 +14,21 @@
         <i class="ra ra-tombstone button" @click="removeCombatant" />
       </div>
     </article>
-    <ul class="row details pt-3">
-      <li>
+    <ul class="row details no-gutters pt-3">
+      <li class="col">
         <i class="ra ra-fw ra-sword"></i> {{ defense.parry }}
         <i class="ra ra-fw ra-player-dodge" /> {{ defense.evasion }}
       </li>
-      <li>
+      <li class="col">
         <i class="ra ra-fw ra-cracked-shield" /> {{ onslaught }} <NumberChanger @increment="onslaught++" @decrement="onslaught--" />
       </li>
-      <li class="motes">
+      <li class="col motes">
         <i class="ra ra-fw ra-circular-saw" />
         <input type="text" :value="moteDisplay.personal" @change="updateMotes" />
         <i class="ra ra-fw  ra-circular-shield" />
         <input type="text" :value="moteDisplay.peripheral" />
       </li>
-      <HealthTrack :health="health" />
+      <HealthTrack class="col" :health="health" />
     </ul>
     <textarea class="row col mt-3" v-model="notes" name="notes" placeholder="Notes..." />
   </li>
@@ -91,6 +91,22 @@ export default {
   border-radius: 4px;
   border: 1px solid black;
 
+  .row {
+    > * {
+      display: inline-flex;
+      justify-content: center;
+      align-items: flex-end;
+      &:first-child {
+        flex: 0 1;
+        justify-content: flex-start;
+      }
+      &:last-child {
+        // flex: 0 1;
+        justify-content: flex-end;
+      }
+    }
+  }
+
   &.turnOver {
     background: #ccc;
     i.turnOver {
@@ -123,15 +139,9 @@ export default {
   article {
     display: inline-flex;
     width: 100%;
-    > * {
-      flex: 1;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-    }
 
     .name-turnOver {
-      flex: 1 0;
+      flex: 1 0 !important;
       input.name {
         width: 100%;
         font-size: 140%;
@@ -163,7 +173,6 @@ export default {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      flex: auto;
       &.motes {
         input {
           flex: 0 1 50px;
@@ -188,6 +197,7 @@ export default {
   }
 
   .button {
+    line-height: 1 !important;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -196,6 +206,10 @@ export default {
     font-size: 120%;
     border-radius: 50%;
     transition: 0.4s;
+  }
+
+  .ra {
+    line-height: inherit;
   }
 
 }

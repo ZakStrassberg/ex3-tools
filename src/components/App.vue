@@ -1,6 +1,6 @@
 <template>
-  <div id="app" class="container-fluid">
-    <InitTracker />
+  <div id="app" class="container">
+    <InitTracker id="init-tracker" />
   </div>
 </template>
 

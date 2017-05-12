@@ -1,5 +1,5 @@
 <template>
-  <div id="AddCombatant">
+  <div class="AddCombatant">
     <input type="text" name="name" placeholder="Harmonious Jade" v-model="combatant.name" />
     <input type="text" name="init" placeholder="3" v-model="combatant.init">
     <input type="button" value="Add Combatant" @click="addCombatant" />
