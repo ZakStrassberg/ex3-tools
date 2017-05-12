@@ -1,9 +1,12 @@
 <template>
-  <span class="number-changer">
+<span class="number-changer">
     <i class="icon-up-circle" @click="increment" />
+    <slot>
+    </slot>
     <i class="icon-down-circle" @click="decrement" />
   </span>
 </template>
+
 <script>
 // change to have a slot that inserts number changer around the slot
 export default {
@@ -18,22 +21,20 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+
+<style lang="scss" scoped>
 .number-changer {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  font-size: 10px;
-
-  i:before {
-    cursor: pointer;
-  }
-
-  .icon-up-circle,
-  .icon-down-circle {
-    &:hover {
-      color: grey;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    i:before {
+        cursor: pointer;
     }
-  }
+    & .icon-down-circle,
+    .icon-up-circle {
+        &:hover {
+            color: grey;
+        }
+    }
 }
 </style>

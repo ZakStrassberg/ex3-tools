@@ -68,13 +68,13 @@ export default {
 
 <style lang="scss" scoped>
 #init-tracker {
-  .combatant-item-move {
-    transition: transform 1s;
-  }
+    .combatant-item-move {
+        transition: transform 1s;
+    }
 
-  > ul {
-    margin: 0;
-    padding: 0;
-  }
+    > ul {
+        margin: 0;
+        padding: 0;
+    }
 }
 </style>

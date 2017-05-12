@@ -1,7 +1,10 @@
 @import 'mixins';
+@import '../assets/fonts/fontello/css/fontello.css';
+@include font-face(Pterra, '../assets/fonts/Pterra-dactyl', null, null, ttf);
 
-@include font-face(Pterra, '../fonts/Pterra-dactyl', null, null, ttf);
-
-*, body, input, button, textarea {
+body,
+button,
+input,
+textarea {
   font-family: Pterra;
 }
