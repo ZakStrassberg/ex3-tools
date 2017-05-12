@@ -16,16 +16,16 @@
     </article>
     <ul class="row details pt-3">
       <li>
-        <i class="ra ra-sword"></i> {{ defense.parry }}
-        <i class="ra ra-player-dodge" /> {{ defense.evasion }}
+        <i class="ra ra-fw ra-sword"></i> {{ defense.parry }}
+        <i class="ra ra-fw ra-player-dodge" /> {{ defense.evasion }}
       </li>
       <li>
-        <i class="ra ra-cracked-shield" /> {{ onslaught }} <NumberChanger @increment="onslaught++" @decrement="onslaught--" />
+        <i class="ra ra-fw ra-cracked-shield" /> {{ onslaught }} <NumberChanger @increment="onslaught++" @decrement="onslaught--" />
       </li>
       <li class="motes">
-        <i class="ra ra-circular-saw" />
+        <i class="ra ra-fw ra-circular-saw" />
         <input type="text" :value="moteDisplay.personal" @change="updateMotes" />
-        <i class="ra  ra-circular-shield" />
+        <i class="ra ra-fw  ra-circular-shield" />
         <input type="text" :value="moteDisplay.peripheral" />
       </li>
       <HealthTrack :health="health" />
