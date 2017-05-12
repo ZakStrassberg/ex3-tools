@@ -66,7 +66,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #init-tracker {
   .combatant-item-move {
     transition: transform 1s;
@@ -76,6 +76,5 @@ export default {
     margin: 0;
     padding: 0;
   }
-
 }
 </style>

@@ -5,6 +5,7 @@
   </span>
 </template>
 <script>
+// change to have a slot that inserts number changer around the slot
 export default {
   name: 'NumberChanger',
   methods: {
@@ -23,10 +24,13 @@ export default {
   flex-direction: column;
   box-sizing: border-box;
   font-size: 10px;
+
   i:before {
     cursor: pointer;
   }
-  .icon-up-circle, .icon-down-circle {
+
+  .icon-up-circle,
+  .icon-down-circle {
     &:hover {
       color: grey;
     }

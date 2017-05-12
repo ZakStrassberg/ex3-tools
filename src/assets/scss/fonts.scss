@@ -2,6 +2,6 @@
 
 @include font-face(Pterra, '../fonts/Pterra-dactyl', null, null, ttf);
 
-*, body, input, button {
+*, body, input, button, textarea {
   font-family: Pterra;
 }

@@ -5,6 +5,8 @@
 </template>
 
 <script>
+// TODO: Note about Firebase 100 concurrent connections
+
 import InitTracker from './InitTracker'
 // eslint-disable-next-line no-unused-vars
 import styles from '../assets/scss/main.scss'

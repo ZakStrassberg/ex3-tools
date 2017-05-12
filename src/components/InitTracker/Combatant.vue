@@ -1,37 +1,35 @@
-<template lang="html">
-  <li :class="['combatant', {turnOver: combatant.turnOver}]">
-    <article class="row no-gutters">
-      <div class="col name-turnOver">
-        <i class="ra ra-hourglass turnOver button" @click="combatant.turnOver = !combatant.turnOver" />
-        <input class="name" type="text" v-model.lazy="combatant.name" />
-      </div>
-      <div class="col init px-3">
-        <input type="text" v-model.number.lazy="combatant.init" />
-        <NumberChanger @increment="combatant.init++" @decrement="combatant.init--" />
-        Initiative
-      </div>
-      <div class="col remove">
-        <i class="ra ra-tombstone button" @click="removeCombatant" />
-      </div>
-    </article>
-    <ul class="row details no-gutters pt-3">
-      <li class="col">
-        <i class="ra ra-fw ra-sword"></i> {{ defense.parry }}
-        <i class="ra ra-fw ra-player-dodge" /> {{ defense.evasion }}
-      </li>
-      <li class="col">
-        <i class="ra ra-fw ra-cracked-shield" /> {{ onslaught }} <NumberChanger @increment="onslaught++" @decrement="onslaught--" />
-      </li>
-      <li class="col motes">
-        <i class="ra ra-fw ra-circular-saw" />
-        <input type="text" :value="moteDisplay.personal" @change="updateMotes" />
-        <i class="ra ra-fw  ra-circular-shield" />
-        <input type="text" :value="moteDisplay.peripheral" />
-      </li>
-      <HealthTrack class="col" :health="health" />
-    </ul>
-    <textarea class="row col mt-3" v-model="notes" name="notes" placeholder="Notes..." />
-  </li>
+<template lang="pug">
+li(:class="['combatant', {turnOver: combatant.turnOver}]")
+	article.row.no-gutters
+		.col.name-turnOver
+			i.ra.ra-hourglass.turnOver.button(@click='combatant.turnOver = !combatant.turnOver')
+			input.name(type='text', v-model.lazy='combatant.name')
+		.col.init.px-3
+			input(type='text', v-model.number.lazy='combatant.init')
+			NumberChanger(@increment='combatant.init++', @decrement='combatant.init--')
+			span Initiative
+		.col.remove
+			i.ra.ra-tombstone.button(@click='removeCombatant')
+	ul.row.details.no-gutters.pt-3
+		li.col
+			section.parry(v-tooltip.top={ content: 'Parry' })
+				i.ra.ra-fw.ra-sword
+				span {{ defense.parry }}
+			section.evasion(v-tooltip.top={ content: 'Evasion' })
+				i.ra.ra-fw.ra-player-dodge
+				span {{ defense.evasion }}
+		li.col
+			section.onslaught(v-tooltip={ content: 'Onslaught' })
+				i.ra.ra-fw.ra-cracked-shield
+				span {{ onslaught }}
+				NumberChanger(@increment='onslaught++', @decrement='onslaught > 0 && onslaught--', min='0')
+		li.col.motes
+			i.ra.ra-fw.ra-circular-saw
+			input(type='text', :value='moteDisplay.personal', @change='updateMotes')
+			i.ra.ra-fw.ra-circular-shield
+			input(type='text', :value='moteDisplay.peripheral')
+		HealthTrack.col(:health='health')
+	textarea.row.col.mt-3(v-model='notes', name='notes', placeholder='Notes...')
 </template>
 
 <script>
@@ -47,7 +45,10 @@ export default {
   },
   data: () => ({
     notes: '',
-    defense: { parry: 0, evasion: 0 },
+    defense: {
+      parry: 0,
+      evasion: 0,
+    },
     onslaught: 0,
     health: [1, 2, 2, 1, 1],
     motes: {
@@ -81,7 +82,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<st<style lang="scss" scoped>
 .combatant {
   background: lighten(gold, 40%);
   display: block;
@@ -89,17 +90,19 @@ export default {
   margin: 12px 0;
   box-sizing: border-box;
   border-radius: 4px;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
 
   .row {
     > * {
       display: inline-flex;
       justify-content: center;
       align-items: flex-end;
+
       &:first-child {
         flex: 0 1;
         justify-content: flex-start;
       }
+
       &:last-child {
         // flex: 0 1;
         justify-content: flex-end;
@@ -109,17 +112,21 @@ export default {
 
   &.turnOver {
     background: #ccc;
+
     i.turnOver {
       color: grey;
       border-color: grey;
+
       &:hover {
         color: gold;
       }
     }
   }
+
   i.turnOver {
     border-color: gold;
     color: gold;
+
     &:hover {
       color: grey;
       border-color: grey;
@@ -142,13 +149,16 @@ export default {
 
     .name-turnOver {
       flex: 1 0 !important;
+
       input.name {
         width: 100%;
         font-size: 140%;
       }
     }
+
     .init {
       flex: 0;
+
       input {
         text-align: center;
         display: inline-flex;
@@ -156,10 +166,10 @@ export default {
         flex: 0;
       }
     }
+
     .remove {
       flex: 0 1;
     }
-
   }
 
   ul {
@@ -170,9 +180,16 @@ export default {
     padding: 0;
 
     li {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
+      display: inherit;
+      justify-content: inherit;
+      align-items: inherit;
+
+      > * {
+        display: inherit;
+        justify-content: inherit;
+        align-items: inherit;
+      }
+
       &.motes {
         input {
           flex: 0 1 50px;
@@ -211,6 +228,5 @@ export default {
   .ra {
     line-height: inherit;
   }
-
 }
 </style>
