@@ -1,13 +1,13 @@
 <template lang="pug">
 section.defenses
-	section.parry.mr-2(v-tooltip="'Base Parry: ' + defenses.parry")
-		i.ra.ra-fw.ra-sword(@click="edit.parry = !edit.parry")
-		span.fw(v-if="!edit.parry") {{ defenses.parry - onslaught }}
-		input.fw(v-else, v-model="defenses.parry", type="text")
-	section.evasion(v-tooltip="'Base Evasion: ' + defenses.evasion")
-		i.ra.ra-fw.ra-player-dodge(@click="edit.evasion = !edit.evasion")
-		span.fw(v-if="!edit.evasion") {{ defenses.evasion - onslaught }}
-		input.fw(v-else, v-model="defenses.evasion", type="text")
+	section.parry.mx-2(v-tooltip="'Base Parry: ' + defenses.parry" @click="edit.parry = !edit.parry" :class="{ edit: edit.parry}")
+		i.ra.ra-fw.ra-sword.px-1
+		span.ra-fw(v-if="!edit.parry") {{ defenses.parry - onslaught }}
+		input.ra-fw(v-else, v-model="defenses.parry", type="text")
+	section.evasion.mx-2(v-tooltip="'Base Evasion: ' + defenses.evasion" @click="edit.evasion = !edit.evasion" :class="{ edit: edit.evasion}")
+		i.ra.ra-fw.ra-player-dodge.px-1
+		span.ra-fw(v-if="!edit.evasion") {{ defenses.evasion - onslaught }}
+		input.ra-fw(v-else, v-model="defenses.evasion", type="text" @click.stop="" @change="edit.evasion = false")
 </template>
 <script>
 export default {
@@ -23,19 +23,25 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../../assets/scss/colors';
-.fw {
-    text-align: center;
-    display: inline-block;
-    width: 1.4rem;
-}
-.ra {
+.evasion,
+.parry {
+    &.edit,
+    &:hover {
+        box-sizing: border-box;
+        border-radius: 8px;
+        background: $dark-gold;
+        padding: 0.25rem;
+        margin: -0.25rem 0.25rem !important;
+    }
     &:hover {
         cursor: pointer;
-        box-sizing: border-box;
-        border-radius: 50%;
-        background: $dark-gold;
-        padding: 3px;
-        margin: -3px;
     }
+}
+.ra-fw {
+    text-align: center;
+    width: 1.4rem;
+}
+span.ra-fw {
+    display: inline-block;
 }
 </style>
