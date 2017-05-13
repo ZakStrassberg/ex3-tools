@@ -20,7 +20,7 @@ li(:class="['combatant', {turnOver: combatant.turnOver}]")
 				span {{ defense.evasion }}
 		li.col
 			section.onslaught(v-tooltip={ content: 'Onslaught' })
-				i.ra.ra-fw.ra-cracked-shield
+				i.ra.ra-fw.ra-cracked-shield(@click="onslaught = 0")
 				NumberChanger(@increment='onslaught++', @decrement='onslaught > 0 && onslaught--', min='0')
 					span.ra-fw {{ onslaught }}
 		li.col
@@ -176,6 +176,15 @@ export default {
                 width: 50px;
                 text-align: center;
             }
+        }
+    }
+
+    .onslaught .ra {
+        transition: 0.4s;
+        &:active {
+            color: darken(gold, 30%);
+            transition: 0s;
+            opacity: 0.1;
         }
     }
 
