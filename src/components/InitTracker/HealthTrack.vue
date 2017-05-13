@@ -1,11 +1,13 @@
 <template>
-  <li class="health-track">
+<li>
+  <section class="health-track">
     <i class="ra ra-health" />
     <span v-for="(value, index) in health">
-      {{ healthLevelTitle(index) }}
-      <input type="checkbox" v-for="each in value">
-    </span>
-  </li>
+        {{ healthLevelTitle(index) }}
+        <input type="checkbox" v-for="each in value">
+      </span>
+  </section>
+</li>
 </template>
 
 <script>
@@ -30,3 +32,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.health-track {
+    display: inherit;
+    justify-content: inherit;
+    align-items: inherit;
+    white-space: nowrap;
+}
+</style>

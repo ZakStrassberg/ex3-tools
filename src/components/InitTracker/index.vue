@@ -1,17 +1,17 @@
 <template lang="pug">
 section
-	h2.row.col Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}
+	h2.row.col.my-3 Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}
 	transition-group(name='combatant-item', tag='ul')
-		combatant(:active='each.name == currentCombatant.name', v-for='(each, index) in combatants', :key='each.key', :combatant.sync='each', @remove='removeCombatant(index)')
-	aside.row.col.actions
+		Combatant.my-3(:active='each.name == currentCombatant.name', v-for='(each, index) in combatants', :key='each.key', :combatant.sync='each', @remove='removeCombatant(index)')
+	aside.row.col.actions.my-3
 		button(@click='sortCombatants') Sort combatants
 		button(@click='nextTurn') Next turn
-	AddCombatant.row.col(@addcombatant='addCombatant')
+	AddCombatant.row.col.my-3(@addcombatant='addCombatant')
 </template>
 
 <script>
 import { sortBy, find } from 'lodash'
-import Combatant from './Combatant'
+import Combatant from './Combatant/'
 import AddCombatant from './AddCombatant'
 
 export default {
@@ -23,12 +23,46 @@ export default {
         init: 12,
         turnOver: false,
         key: 'unique1',
+        notes: '',
+        defense: {
+          parry: 0,
+          evasion: 0,
+        },
+        onslaught: 0,
+        health: [1, 2, 2, 1, 1],
+        motes: {
+          personal: {
+            total: 11,
+            available: 9,
+          },
+          peripheral: {
+            total: 35,
+            available: 17,
+          },
+        },
       },
       {
         name: 'Peleps Deled',
         init: 7,
         turnOver: false,
         key: 'unique2',
+        notes: '',
+        defense: {
+          parry: 0,
+          evasion: 0,
+        },
+        onslaught: 0,
+        health: [1, 2, 2, 1, 1],
+        motes: {
+          personal: {
+            total: 11,
+            available: 9,
+          },
+          peripheral: {
+            total: 35,
+            available: 17,
+          },
+        },
       },
     ],
     turn: 0,
@@ -54,6 +88,10 @@ export default {
       for (const each of this.combatants) {
         each.turnOver = false
         // regen motes
+        const { peripheral, personal } = each.motes
+        console.log(peripheral, personal)
+        console.log(peripheral.available, peripheral.total)
+        // if(each.motes.peripheral.available < )
       }
       this.sortCombatants()
     },

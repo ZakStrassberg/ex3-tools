@@ -12,25 +12,25 @@ li(:class="['combatant', {turnOver: combatant.turnOver}, { active }]")
 			i.ra.ra-tombstone.button(@click='removeCombatant')
 	ul.row.details.no-gutters.pt-3
 		li.col
-			section.parry(v-tooltip.top={ content: 'Parry' })
+			section.parry(v-tooltip="'Base Parry: ' + combatant.defense.parry")
 				i.ra.ra-fw.ra-sword
-				span {{ defense.parry }}
-			section.evasion(v-tooltip.top={ content: 'Evasion' })
+				span.ra-fw {{ combatant.defense.parry - combatant.onslaught }}
+			section.evasion(v-tooltip="'Base Evasion: ' + combatant.defense.evasion")
 				i.ra.ra-fw.ra-player-dodge
-				span {{ defense.evasion }}
+				span.ra-fw {{ combatant.defense.evasion - combatant.onslaught }}
 		li.col
 			section.onslaught(v-tooltip={ content: 'Onslaught' })
-				i.ra.ra-fw.ra-cracked-shield(@click="onslaught = 0")
-				NumberChanger(@increment='onslaught++', @decrement='onslaught > 0 && onslaught--', min='0')
-					input.ra-fw(v-model="onslaught" type="text" @keyup.up="onslaught++", @keyup.down="onslaught > 0 && onslaught--")
+				i.ra.ra-fw.ra-cracked-shield(@click="combatant.onslaught = 0")
+				NumberChanger(@increment='combatant.onslaught++', @decrement='combatant.onslaught > 0 && combatant.onslaught--', min='0')
+					input.ra-fw(v-model="combatant.onslaught" type="text" @keyup.up="combatant.onslaught++", @keyup.down="combatant.onslaught > 0 && combatant.onslaught--")
 		li.col
 			section.motes(v-tooltip={ content: 'Motes' })
 				i.ra.ra-fw.ra-circular-saw
-				input(type='text', :value='moteDisplay.personal', @change='updateMotes')
+				input(type='text', :value='moteDisplay.personal', @change='updateMotes' name="personal")
 				i.ra.ra-fw.ra-circular-shield
-				input(type='text', :value='moteDisplay.peripheral')
-		HealthTrack.col(:health='health')
-	textarea.row.col.mt-3(v-model='notes', name='notes', placeholder='Notes...')
+				input(type='text', :value='moteDisplay.peripheral' @change='updateMotes' name="peripheral")
+		HealthTrack.col(:health='combatant.health' v-tooltip={ content: 'Health Levels' })
+	textarea.row.col.mt-3(v-model='combatant.notes', name='notes', placeholder='Notes...')
 </template>
 
 <script>
@@ -44,46 +44,35 @@ export default {
     HealthTrack,
     NumberChanger,
   },
-  data: () => ({
-    notes: '',
-    defense: {
-      parry: 0,
-      evasion: 0,
-    },
-    onslaught: 0,
-    health: [1, 2, 2, 1, 1],
-    motes: {
-      personal: {
-        total: 11,
-        available: 9,
-      },
-      peripheral: {
-        total: 35,
-        available: 17,
-      },
-    },
-  }),
+  // data: () => ({}),
   methods: {
     removeCombatant () {
       this.$emit('remove')
     },
-    updateMotes (e) {
-      console.log(e.target.value)
-      this.motes['personal'].available = e.target.value
+    updateMotes ({ target: { name, value }}) {
+      const [available, total] = value.split('/')
+      this.$set(
+        this.combatant.motes[name],
+        'available',
+        parseInt(available, 10) || 0
+      )
+      if (total) {
+        this.$set(this.combatant.motes[name], 'total', parseInt(total, 10) || 0)
+      }
     },
   },
   computed: {
     moteDisplay () {
       return {
-        personal: `${this.motes.personal.available}/${this.motes.personal.total}`,
-        peripheral: `${this.motes.peripheral.available}/${this.motes.peripheral.total}`,
+        personal: `${this.combatant.motes.personal.available}/${this.combatant.motes.personal.total}`,
+        peripheral: `${this.combatant.motes.peripheral.available}/${this.combatant.motes.peripheral.total}`,
       }
     },
   },
   watch: {
     active (val) {
       if (val) {
-        this.onslaught = 0
+        this.combatant.onslaught = 0
       }
     },
   },
@@ -95,32 +84,25 @@ export default {
     background: lighten(gold, 40%);
     display: block;
     padding: 12px;
-    margin: 12px 0;
     box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
     transition: 0.4s;
-    .row {
-        > * {
-            display: inline-flex;
-            justify-content: center;
-            align-items: flex-end;
-            &:first-child {
-                flex: 0 1;
-                justify-content: flex-start;
-            }
-            &:last-child {
-                // flex: 0 1;
-                justify-content: flex-end;
-            }
-        }
-    }
     &.active {
         width: 110%;
         margin: 12px -5%;
         background: lighten(gold, 33%);
         border: 2px solid gold;
         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+    }
+    .row {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        > * {
+            display: inherit;
+            flex: 0 1;
+        }
     }
     &.turnOver {
         background: #ccc;
@@ -187,14 +169,15 @@ export default {
                 align-items: inherit;
             }
             .motes input {
-                flex: 0 1 50px;
-                width: 50px;
+                flex: 0 1 60px;
+                width: 60px;
                 text-align: center;
             }
         }
     }
 
     .onslaught .ra {
+        cursor: pointer;
         transition: 0.4s;
         &:active {
             color: darken(gold, 30%);
