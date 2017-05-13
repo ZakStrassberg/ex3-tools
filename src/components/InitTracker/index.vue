@@ -1,14 +1,11 @@
-<template>
-<section>
-  <h2 class="row col">Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}</h2>
-  <transition-group name="combatant-item" tag="ul">
-    <Combatant v-for="(each, index) in sortedCombatants" :key="each.key" :combatant.sync="each" @remove="removeCombatant(index)" />
-  </transition-group>
-  <aside class="row col actions">
-    <button @click="nextTurn">Next turn</button>
-  </aside>
-  <AddCombatant class="row col" @addCombatant="addCombatant" />
-</section>
+<template lang="pug">
+section
+	h2.row.col Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}
+	transition-group(name='combatant-item', tag='ul')
+		combatant(:class='{ active : each.name == currentCombatant.name }', v-for='(each, index) in sortedCombatants', :key='each.key', :combatant.sync='each', @remove='removeCombatant(index)')
+	aside.row.col.actions
+		button(@click='nextTurn') Next turn
+	AddCombatant.row.col(@addcombatant='addCombatant')
 </template>
 
 <script>
@@ -40,9 +37,11 @@ export default {
       return sortBy(this.combatants, ['init']).reverse()
     },
     currentCombatant () {
-      return find(this.sortedCombatants, {
-        turnOver: false,
-      })
+      return (
+        find(this.sortedCombatants, {
+          turnOver: false,
+        }) || false
+      )
     },
   },
   methods: {

@@ -92,6 +92,7 @@ export default {
     box-sizing: border-box;
     border-radius: 4px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+    transition: 0.4s;
     .row {
         > * {
             display: inline-flex;
@@ -106,6 +107,13 @@ export default {
                 justify-content: flex-end;
             }
         }
+    }
+    &.active {
+        width: 110%;
+        margin: 12px -5%;
+        background: lighten(gold, 33%);
+        border: 2px solid gold;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
     }
     &.turnOver {
         background: #ccc;
