@@ -22,7 +22,7 @@ li(:class="['combatant', {turnOver: combatant.turnOver}]")
 			section.onslaught(v-tooltip={ content: 'Onslaught' })
 				i.ra.ra-fw.ra-cracked-shield(@click="onslaught = 0")
 				NumberChanger(@increment='onslaught++', @decrement='onslaught > 0 && onslaught--', min='0')
-					span.ra-fw {{ onslaught }}
+					input.ra-fw(v-model="onslaught" type="text" @keyup.up="onslaught++", @keyup.down="onslaught > 0 && onslaught--")
 		li.col
 			section.motes(v-tooltip={ content: 'Motes' })
 				i.ra.ra-fw.ra-circular-saw
