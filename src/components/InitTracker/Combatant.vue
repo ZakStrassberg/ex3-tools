@@ -1,5 +1,5 @@
 <template lang="pug">
-li(:class="['combatant', {turnOver: combatant.turnOver}]")
+li(:class="['combatant', {turnOver: combatant.turnOver}, { active }]")
 	article.row.no-gutters
 		.col.name-turnOver
 			i.ra.ra-hourglass.turnOver.button(@click='combatant.turnOver = !combatant.turnOver')
@@ -39,7 +39,7 @@ import NumberChanger from '../Common/NumberChanger'
 
 export default {
   name: 'Combatant',
-  props: ['combatant'],
+  props: ['combatant', 'active'],
   components: {
     HealthTrack,
     NumberChanger,
@@ -77,6 +77,13 @@ export default {
       return {
         personal: `${this.motes.personal.available}/${this.motes.personal.total}`,
         peripheral: `${this.motes.peripheral.available}/${this.motes.peripheral.total}`,
+      }
+    },
+  },
+  watch: {
+    active (val) {
+      if (val) {
+        this.onslaught = 0
       }
     },
   },

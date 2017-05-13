@@ -2,7 +2,7 @@
 section
 	h2.row.col Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}
 	transition-group(name='combatant-item', tag='ul')
-		combatant(:class='{ active : each.name == currentCombatant.name }', v-for='(each, index) in sortedCombatants', :key='each.key', :combatant.sync='each', @remove='removeCombatant(index)')
+		combatant(:active='each.name == currentCombatant.name', v-for='(each, index) in sortedCombatants', :key='each.key', :combatant.sync='each', @remove='removeCombatant(index)')
 	aside.row.col.actions
 		button(@click='nextTurn') Next turn
 	AddCombatant.row.col(@addcombatant='addCombatant')
