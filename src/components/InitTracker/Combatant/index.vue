@@ -2,22 +2,17 @@
 li(:class="['combatant', {turnOver: combatant.turnOver}, { active }]")
 	article.row.no-gutters
 		.col.name-turnOver
-			i.ra.ra-hourglass.turnOver.button.mr-3(@click='combatant.turnOver = !combatant.turnOver')
+			i.ra.ra-hourglass.turnOver.button.mr-3(@click='combatant.turnOver = !combatant.turnOver' v-tooltip="'Toggle turn'")
 			input.name(type='text', v-model.lazy='combatant.name')
 		.col.init.px-3
 			//- span Initiative
 			NumberChanger(@increment='combatant.init++', @decrement='combatant.init--', v-tooltip={ content: 'Initiative' })
 				input(type='text', v-model.number.lazy='combatant.init', @keyup.up="combatant.init++", @keyup.down="combatant.init--")
 		.col.remove
-			i.ra.ra-tombstone.button(@click='removeCombatant')
+			i.ra.ra-tombstone.button(@click='removeCombatant' v-tooltip="'Remove combatant'")
 	ul.row.details.no-gutters.pt-3
 		li.col
-			section.parry(v-tooltip="'Base Parry: ' + combatant.defense.parry")
-				i.ra.ra-fw.ra-sword
-				span.ra-fw {{ combatant.defense.parry - combatant.onslaught }}
-			section.evasion(v-tooltip="'Base Evasion: ' + combatant.defense.evasion")
-				i.ra.ra-fw.ra-player-dodge
-				span.ra-fw {{ combatant.defense.evasion - combatant.onslaught }}
+			Defenses(:defenses.sync="combatant.defenses" :onslaught="combatant.onslaught")
 		li.col
 			section.onslaught(v-tooltip={ content: 'Onslaught' })
 				i.ra.ra-fw.ra-cracked-shield(@click="combatant.onslaught = 0")
@@ -29,13 +24,15 @@ li(:class="['combatant', {turnOver: combatant.turnOver}, { active }]")
 				input(type='text', :value='moteDisplay.personal', @change='updateMotes' name="personal")
 				i.ra.ra-fw.ra-circular-shield
 				input(type='text', :value='moteDisplay.peripheral' @change='updateMotes' name="peripheral")
-		HealthTrack.col(:health='combatant.health' v-tooltip={ content: 'Health Levels' })
+		li.col
+			HealthTrack(:health='combatant.health' v-tooltip={ content: 'Health Levels' })
 	textarea.row.col.mt-3(v-model='combatant.notes', name='notes', placeholder='Notes...')
 </template>
 
 <script>
 import HealthTrack from './HealthTrack'
-import NumberChanger from '../Common/NumberChanger'
+import NumberChanger from './NumberChanger'
+import Defenses from './Defenses'
 
 export default {
   name: 'Combatant',
@@ -43,6 +40,7 @@ export default {
   components: {
     HealthTrack,
     NumberChanger,
+    Defenses,
   },
   // data: () => ({}),
   methods: {
@@ -121,14 +119,6 @@ export default {
             color: grey;
             border-color: grey;
         }
-    }
-    input[type="text"] {
-        appearance: none;
-        border: none;
-        outline: none;
-        border-bottom: 1px solid gold;
-        background: inherit;
-        color: inherit;
     }
     article {
         display: inline-flex;

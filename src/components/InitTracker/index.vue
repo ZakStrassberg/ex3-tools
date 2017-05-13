@@ -24,7 +24,7 @@ export default {
         turnOver: false,
         key: 'unique1',
         notes: '',
-        defense: {
+        defenses: {
           parry: 0,
           evasion: 0,
         },
@@ -47,7 +47,7 @@ export default {
         turnOver: false,
         key: 'unique2',
         notes: '',
-        defense: {
+        defenses: {
           parry: 0,
           evasion: 0,
         },
