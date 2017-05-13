@@ -2,8 +2,9 @@
 section
 	h2.row.col Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}
 	transition-group(name='combatant-item', tag='ul')
-		combatant(:active='each.name == currentCombatant.name', v-for='(each, index) in sortedCombatants', :key='each.key', :combatant.sync='each', @remove='removeCombatant(index)')
+		combatant(:active='each.name == currentCombatant.name', v-for='(each, index) in combatants', :key='each.key', :combatant.sync='each', @remove='removeCombatant(index)')
 	aside.row.col.actions
+		button(@click='sortCombatants') Sort combatants
 		button(@click='nextTurn') Next turn
 	AddCombatant.row.col(@addcombatant='addCombatant')
 </template>
@@ -45,11 +46,16 @@ export default {
     },
   },
   methods: {
+    sortCombatants () {
+      this.combatants = sortBy(this.combatants, ['init']).reverse()
+    },
     nextTurn () {
       this.turn++
       for (const each of this.combatants) {
         each.turnOver = false
+        // regen motes
       }
+      this.sortCombatants()
     },
     addCombatant (combatant) {
       this.combatants.push(combatant)
