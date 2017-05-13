@@ -2,7 +2,7 @@
 li(:class="['combatant', {turnOver: combatant.turnOver}, { active }]")
 	article.row.no-gutters
 		.col.name-turnOver
-			i.ra.ra-hourglass.turnOver.button(@click='combatant.turnOver = !combatant.turnOver')
+			i.ra.ra-hourglass.turnOver.button.mr-3(@click='combatant.turnOver = !combatant.turnOver')
 			input.name(type='text', v-model.lazy='combatant.name')
 		.col.init.px-3
 			//- span Initiative
