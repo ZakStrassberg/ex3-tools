@@ -1,32 +1,32 @@
 <template lang="pug">
 li(:class="['combatant', {turnOver: combatant.turnOver}, { active }]")
-	article.row.no-gutters
-		.col.name-turnOver
-			i.ra.ra-hourglass.turnOver.button.mr-3(@click='combatant.turnOver = !combatant.turnOver' v-tooltip="'Toggle turn'")
-			input.name(type='text', v-model.lazy='combatant.name')
-		.col.init.px-3
-			//- span Initiative
-			NumberChanger(@increment='combatant.init++', @decrement='combatant.init--', v-tooltip={ content: 'Initiative' })
-				input(type='text', v-model.number.lazy='combatant.init', @keyup.up="combatant.init++", @keyup.down="combatant.init--")
-		.col.remove
-			i.ra.ra-tombstone.button(@click='removeCombatant' v-tooltip="'Remove combatant'")
-	ul.row.details.no-gutters.pt-3
-		li.col
-			Defenses(:defenses.sync="combatant.defenses" :onslaught="combatant.onslaught")
-		li.col
-			section.onslaught(v-tooltip={ content: 'Onslaught' })
-				i.ra.ra-fw.ra-cracked-shield(@click="combatant.onslaught = 0")
-				NumberChanger(@increment='combatant.onslaught++', @decrement='combatant.onslaught > 0 && combatant.onslaught--', min='0')
-					input.ra-fw(v-model="combatant.onslaught" type="text" @keyup.up="combatant.onslaught++", @keyup.down="combatant.onslaught > 0 && combatant.onslaught--")
-		li.col
-			section.motes(v-tooltip={ content: 'Motes' })
-				i.ra.ra-fw.ra-circular-saw
-				input(type='text', :value='moteDisplay.personal', @change='updateMotes' name="personal")
-				i.ra.ra-fw.ra-circular-shield
-				input(type='text', :value='moteDisplay.peripheral' @change='updateMotes' name="peripheral")
-		li.col
-			HealthTrack(:health='combatant.health' v-tooltip={ content: 'Health Levels' })
-	textarea.row.col.mt-3(v-model='combatant.notes', name='notes', placeholder='Notes...')
+  article.row.no-gutters
+    .col.name-turnOver
+      i.ra.ra-hourglass.turnOver.button.mr-3(@click='combatant.turnOver = !combatant.turnOver' v-tooltip="'Toggle turn'")
+      input.name(type='text', v-model.lazy='combatant.name')
+    .col.init.px-3
+      //- span Initiative
+      NumberChanger(@increment='combatant.init++', @decrement='combatant.init--', v-tooltip={ content: 'Initiative' })
+        input(type='text', v-model.number.lazy='combatant.init', @keyup.up="combatant.init++", @keyup.down="combatant.init--")
+    .col.remove
+      i.ra.ra-tombstone.button(@click='removeCombatant' v-tooltip="'Remove combatant'")
+  ul.row.details.no-gutters.pt-3
+    li.col
+      Defenses(:defenses.sync="combatant.defenses" :onslaught="combatant.onslaught")
+    li.col
+      section.onslaught(v-tooltip={ content: 'Onslaught' })
+        i.ra.ra-fw.ra-cracked-shield(@click="combatant.onslaught = 0")
+        NumberChanger(@increment='combatant.onslaught++', @decrement='combatant.onslaught > 0 && combatant.onslaught--', min='0')
+          input.ra-fw(v-model="combatant.onslaught" type="text" @keyup.up="combatant.onslaught++", @keyup.down="combatant.onslaught > 0 && combatant.onslaught--")
+    li.col
+      section.motes(v-tooltip={ content: 'Motes' })
+        i.ra.ra-fw.ra-circular-saw
+        input(type='text', :value='moteDisplay.personal', @change='updateMotes' name="personal")
+        i.ra.ra-fw.ra-circular-shield
+        input(type='text', :value='moteDisplay.peripheral' @change='updateMotes' name="peripheral")
+    li.col
+      HealthTrack(:health='combatant.health' v-tooltip={ content: 'Health Levels' })
+  textarea.row.col.mt-3(v-model='combatant.notes', name='notes', placeholder='Notes...')
 </template>
 
 <script>

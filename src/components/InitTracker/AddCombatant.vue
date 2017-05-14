@@ -6,25 +6,39 @@
   </div>
 </template>
 <script>
+const blankCombatant = {
+  name: '',
+  init: 3,
+  turnOver: false,
+  key: Date.now(),
+  notes: '',
+  defenses: {
+    parry: 0,
+    evasion: 0,
+  },
+  onslaught: 0,
+  health: [1, 2, 2, 1, 1],
+  motes: {
+    personal: {
+      total: 0,
+      available: 0,
+    },
+    peripheral: {
+      total: 0,
+      available: 0,
+    },
+  },
+}
+
 export default {
   name: 'AddCombatant',
   data: () => ({
-    combatant: {
-      name: '',
-      init: 3,
-      turnOver: false,
-      key: Date.now(),
-    },
+    combatant: blankCombatant,
   }),
   methods: {
     addCombatant () {
       this.$emit('addCombatant', this.combatant)
-      this.combatant = {
-        name: '',
-        init: 3,
-        turnOver: false,
-        key: Date.now(),
-      }
+      this.combatant = blankCombatant
     },
   },
 }

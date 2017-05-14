@@ -1,12 +1,12 @@
 <template lang="pug">
 section
-	h2.row.col.my-3 Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}
-	transition-group(name='combatant-item', tag='ul')
-		Combatant.my-3(:active='each.name == currentCombatant.name', v-for='(each, index) in combatants', :key='each.key', :combatant.sync='each', @remove='removeCombatant(index)')
-	aside.row.col.actions.my-3
-		button(@click='sortCombatants') Sort combatants
-		button(@click='nextTurn') Next turn
-	AddCombatant.row.col.my-3(@addcombatant='addCombatant')
+  h2.row.col.my-3 Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}
+  transition-group(name='combatant-item', tag='ul')
+    Combatant.my-3(:active='each.name == currentCombatant.name', v-for='(each, index) in combatants', :key='each.key', :combatant.sync='each', @remove='removeCombatant(index)')
+  aside.row.col.actions.my-3
+    button(@click='sortCombatants') Sort combatants
+    button(@click='nextTurn') Next turn
+  AddCombatant.row.col.my-3(@addCombatant='addCombatant')
 </template>
 
 <script>
