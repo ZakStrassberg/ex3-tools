@@ -2,7 +2,7 @@
 section.defenses
   ContextMenu(:items="menu.parry")
     section.parry.mx-2(
-      v-tooltip="'Base Parry: ' + defenses.parry",
+      v-tooltip="'Base Parry: ' + defenses.parry || 0",
       @click="edit.parry = !edit.parry",
       v-bind:class="{ edit: edit.parry}",
     )
@@ -12,17 +12,21 @@ section.defenses
         v-else,
         v-focus="edit.parry",
         @focus="defenses.parry = ''; edit.parry = true",
-        @blur="edit.parry = false",
+        @blur="edit.parry = false; defenses.parry == '' ? defenses.parry = 0 : null",
         v-model="defenses.parry",
         type="text")
-  section.evasion.mx-2(v-tooltip="'Base Evasion: ' + defenses.evasion" @click="edit.evasion = !edit.evasion" v-bind:class="{ edit: edit.evasion}")
+  section.evasion.mx-2(
+    v-tooltip="'Base Evasion: ' + defenses.evasion",
+    @click="edit.evasion = !edit.evasion",
+    v-bind:class="{ edit: edit.evasion}",
+  )
     i.ra.ra-fw.ra-player-dodge.px-1
     span.ra-fw(v-if="!edit.evasion") {{ defenses.evasion - onslaught }}
     input.ra-fw(
       v-else,
       v-focus="edit.evasion",
       @focus="defenses.evasion = ''; edit.evasion = true",
-      @blur="edit.evasion = false",
+      @blur="edit.evasion = false; defenses.evasion == '' ? defenses.evasion = 0 : null",
       v-model="defenses.evasion",
       type="text")
 </template>

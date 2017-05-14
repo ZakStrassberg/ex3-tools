@@ -1,6 +1,7 @@
 @import 'bootstrap';
 @import 'fonts';
 @import 'tooltips';
+@import 'colors';
 
 body {
   background: #ADD8E6;
@@ -14,7 +15,7 @@ input[type="text"] {
   appearance: none;
   border: none;
   outline: none;
-  border-bottom: 1px solid gold;
+  border-bottom: 1px solid $gold;
   background: inherit;
   color: inherit;
   margin-bottom: -2px;

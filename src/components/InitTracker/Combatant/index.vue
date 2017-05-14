@@ -19,11 +19,7 @@ li(:class="['combatant', {turnOver: combatant.turnOver}, { active }]")
         NumberChanger(@increment='combatant.onslaught++', @decrement='combatant.onslaught > 0 && combatant.onslaught--', min='0')
           input.ra-fw(v-model="combatant.onslaught" type="text" @keyup.up="combatant.onslaught++", @keyup.down="combatant.onslaught > 0 && combatant.onslaught--")
     li.col
-      section.motes(v-tooltip={ content: 'Motes' })
-        i.ra.ra-fw.ra-circular-saw
-        input(type='text', :value='moteDisplay.personal', @change='updateMotes' name="personal")
-        i.ra.ra-fw.ra-circular-shield
-        input(type='text', :value='moteDisplay.peripheral' @change='updateMotes' name="peripheral")
+      MoteDisplay(:motes.sync="combatant.motes")
     li.col
       HealthTrack(:health='combatant.health' v-tooltip={ content: 'Health Levels' })
   textarea.row.col.mt-3(v-model='combatant.notes', name='notes', placeholder='Notes...')
@@ -33,6 +29,7 @@ li(:class="['combatant', {turnOver: combatant.turnOver}, { active }]")
 import HealthTrack from './HealthTrack'
 import NumberChanger from './NumberChanger'
 import Defenses from './Defenses'
+import MoteDisplay from './MoteDisplay'
 
 export default {
   name: 'Combatant',
@@ -41,30 +38,12 @@ export default {
     HealthTrack,
     NumberChanger,
     Defenses,
+    MoteDisplay,
   },
   // data: () => ({}),
   methods: {
     removeCombatant () {
       this.$emit('remove')
-    },
-    updateMotes ({ target: { name, value }}) {
-      const [available, total] = value.split('/')
-      this.$set(
-        this.combatant.motes[name],
-        'available',
-        parseInt(available, 10) || 0
-      )
-      if (total) {
-        this.$set(this.combatant.motes[name], 'total', parseInt(total, 10) || 0)
-      }
-    },
-  },
-  computed: {
-    moteDisplay () {
-      return {
-        personal: `${this.combatant.motes.personal.available}/${this.combatant.motes.personal.total}`,
-        peripheral: `${this.combatant.motes.peripheral.available}/${this.combatant.motes.peripheral.total}`,
-      }
     },
   },
   watch: {
@@ -158,11 +137,7 @@ export default {
                 justify-content: inherit;
                 align-items: inherit;
             }
-            .motes input {
-                flex: 0 1 60px;
-                width: 60px;
-                text-align: center;
-            }
+
         }
     }
 
