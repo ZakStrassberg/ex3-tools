@@ -8,16 +8,30 @@ section.defenses
     )
       i.ra.ra-fw.ra-sword.px-1
       span.ra-fw(v-if="!edit.parry") {{ defenses.parry - onslaught }}
-      input.ra-fw(v-else, v-model="defenses.parry", type="text")
+      input.ra-fw(
+        v-else,
+        v-focus="edit.parry",
+        @focus="defenses.parry = ''; edit.parry = true",
+        @blur="edit.parry = false",
+        v-model="defenses.parry",
+        type="text")
   section.evasion.mx-2(v-tooltip="'Base Evasion: ' + defenses.evasion" @click="edit.evasion = !edit.evasion" v-bind:class="{ edit: edit.evasion}")
     i.ra.ra-fw.ra-player-dodge.px-1
     span.ra-fw(v-if="!edit.evasion") {{ defenses.evasion - onslaught }}
-    input.ra-fw(v-else, v-model="defenses.evasion", type="text" @click.stop="" @change="edit.evasion = false")
+    input.ra-fw(
+      v-else,
+      v-focus="edit.evasion",
+      @focus="defenses.evasion = ''; edit.evasion = true",
+      @blur="edit.evasion = false",
+      v-model="defenses.evasion",
+      type="text")
 </template>
 <script>
+import { focus } from 'vue-focus'
 import ContextMenu from 'vue2-context-menu'
 
 export default {
+  directives: { focus },
   name: 'Defenses',
   props: ['defenses', 'onslaught'],
   data: () => ({
@@ -65,5 +79,8 @@ export default {
 }
 span.ra-fw {
     display: inline-block;
+}
+input.ra-fw {
+  border-bottom: none;
 }
 </style>
