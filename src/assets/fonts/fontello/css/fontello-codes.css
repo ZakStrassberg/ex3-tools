@@ -1,5 +1,8 @@
 
 .icon-up-circle:before { content: '\e800'; } /* '' */
 .icon-down-circle:before { content: '\e801'; } /* '' */
-.icon-clover:before { content: '\e802'; } /* '' */
-.icon-clover-spiked:before { content: '\e803'; } /* '' */
+.icon-personal-motes:before { content: '\e802'; } /* '' */
+.icon-peripheral-motes:before { content: '\e803'; } /* '' */
+.icon-damage-agg:before { content: '\e806'; } /* '' */
+.icon-damage-lethal:before { content: '\e807'; } /* '' */
+.icon-damage-bashing:before { content: '\e808'; } /* '' */

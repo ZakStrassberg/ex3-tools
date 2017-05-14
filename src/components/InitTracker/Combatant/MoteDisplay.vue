@@ -1,10 +1,10 @@
 <template lang="pug">
   section.MoteDisplay
     div.personal(v-tooltip={ content: 'Personal Motes' })
-      i.icon-clover
+      i.icon-personal-motes
       input(type='text', :value='moteDisplay.personal', @change='updateMotes' name="personal")
     div.peripheral(v-tooltip={ content: 'Peripheral Motes' })
-      i.icon-clover-spiked
+      i.icon-peripheral-motes
       input(type='text', :value='moteDisplay.peripheral' @change='updateMotes' name="peripheral")
 </template>
 <script>

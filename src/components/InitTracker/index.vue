@@ -29,7 +29,7 @@ export default {
           evasion: 0,
         },
         onslaught: 0,
-        health: [1, 2, 2, 1, 1],
+        health: [[0], [0, 0], [0, 0], [0], [0]],
         motes: {
           personal: {
             total: 11,
@@ -52,7 +52,7 @@ export default {
           evasion: 0,
         },
         onslaught: 0,
-        health: [1, 2, 2, 1, 1],
+        health: [[0], [0, 0], [0, 0], [0], [0]],
         motes: {
           personal: {
             total: 11,
