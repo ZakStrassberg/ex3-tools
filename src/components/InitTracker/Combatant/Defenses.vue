@@ -11,23 +11,25 @@ section.defenses
       input.ra-fw(
         v-else,
         v-focus="edit.parry",
-        @focus="defenses.parry = ''; edit.parry = true",
-        @blur="edit.parry = false; defenses.parry == '' ? defenses.parry = 0 : null",
-        v-model="defenses.parry",
+        @focus="prevParry = defenses.parry; defenses.parry = ''; edit.parry = true",
+        @blur="edit.parry = false; defenses.parry == '' ? defenses.parry = prevParry : null",
+        v-model.number="defenses.parry",
         type="text")
   section.evasion.mx-2(
     v-tooltip="'Base Evasion: ' + defenses.evasion",
     @click="edit.evasion = !edit.evasion",
     v-bind:class="{ edit: edit.evasion}",
+    @keyup.up="defenses.evasion++",
+    @keyup.down="defenses.evasion > 0 && defenses.evasion--",
   )
     i.ra.ra-fw.ra-player-dodge.px-1
     span.ra-fw(v-if="!edit.evasion") {{ defenses.evasion - onslaught }}
     input.ra-fw(
       v-else,
       v-focus="edit.evasion",
-      @focus="defenses.evasion = ''; edit.evasion = true",
+      @focus="prevEvasion = defenses.evasion; defenses.evasion = ''; edit.evasion = true",
       @blur="edit.evasion = false; defenses.evasion == '' ? defenses.evasion = 0 : null",
-      v-model="defenses.evasion",
+      v-model.number="defenses.evasion",
       type="text")
 </template>
 <script>
@@ -55,6 +57,8 @@ export default {
         { name: 'test6', url: 'http://google.com' },
       ],
     },
+    prevParry: 0,
+    prevEvasion: 0,
   }),
   components: {
     ContextMenu,
@@ -86,5 +90,12 @@ span.ra-fw {
 }
 input.ra-fw {
   border-bottom: none;
+}
+</style>
+<style lang="scss">
+.ctx-menu-content {
+  margin: 8px;
+  position: fixed !important;
+  z-index: 999;
 }
 </style>
