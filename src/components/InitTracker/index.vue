@@ -2,11 +2,35 @@
 section
   h2.row.col.my-3 Turn {{ turn }} - Active: {{ currentCombatant ? currentCombatant.name : 'None' }}
   transition-group(name='combatant-item', tag='ul')
-    Combatant.my-3(:active='each.name == currentCombatant.name', v-for='(each, index) in combatants', :key='each.key', :combatant.sync='each', @remove='removeCombatant(index)')
+    Combatant.my-3(
+      v-for='(each, index) in combatants',
+      :active='each.name == currentCombatant.name',
+      :combatant.sync='each',
+      :key='each.key',
+      @remove='removeCombatant(index)',
+      @dragleave.stop.prevent=""
+
+      @drop="newcomponentdrop"
+
+      draggable="true"
+    )
   aside.row.col.actions.my-3
     button(@click='sortCombatants') Sort combatants
     button(@click='nextTurn') Next turn
   AddCombatant.row.col.my-3(@addCombatant='addCombatant')
+  p.my-0 ToDo:
+  ul.ml-3
+    li Spacing of combatant row items (lower bar)
+    li Add confirmation state for delete combatant
+    li Spruce up Add Combatant
+    li Rethink 'Actions' (sort, new turn)
+    li better health levels
+    li keyboard shortcuts
+      ul
+        li Hover + up/down to move scores
+    li More battle logic?
+      ul
+        li Drag to attack? (increases onslaught, pops up modal with stats, does init + crash)
 </template>
 
 <script>
@@ -100,6 +124,29 @@ export default {
     },
     removeCombatant (index) {
       this.combatants.splice(index, 1)
+    },
+    drop (e) {
+      console.log('Looks like you dropped something!')
+    },
+    newdragover (e) {
+      console.log('newdragover')
+      console.log(e)
+    },
+    newdragenter (e) {
+      console.log('newdragenter')
+      console.log(e)
+    },
+    newcomponentdrop (e) {
+      console.log('newcomponentdrop')
+      console.log(e)
+    },
+    dragend (e) {
+      console.log('dragend')
+      console.log(e)
+    },
+    dragnewcompont (e) {
+      console.log('dragnewcompont')
+      console.log(e)
     },
   },
   components: {
